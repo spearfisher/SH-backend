@@ -4,8 +4,17 @@ class Server < EM::Connection
   extend Hardware
 
   def receive_data(data)
-    @data = JSON.parse(data)
-    data_processing
+    @data = parse(data)
+    data_processing if @data
+  end
+
+  private
+
+  def parse(data)
+    JSON.parse(data)
+  rescue
+    close
+    false
   end
 
   def data_processing
