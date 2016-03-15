@@ -23,8 +23,15 @@ class Server < EM::Connection
   end
 
   def rpi_activation
-    response = { serial: Server.serial, revision: Server.revision }
-    send_data response.to_json
+    response(serial: Server.serial, revision: Server.revision)
+  end
+
+  def ping
+    response(message: 'pong')
+  end
+
+  def response(message)
+    send_data message.to_json
   end
 
   def run(action)
