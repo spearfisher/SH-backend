@@ -1,7 +1,10 @@
-require 'eventmachine'
-require 'json'
+require 'sinatra'
+require 'sinatra/activerecord'
+require 'thin'
 require_relative 'server'
 
 EM.run do
-  EM.start_server('', 8081, Server)
+  Thin::Server.start(Server, '', 8081)
+  Signal.trap('INT') { EM.stop }
+  Signal.trap('TERM') { EM.stop }
 end
