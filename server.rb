@@ -1,6 +1,6 @@
 require_relative 'lib/raspberry'
 
-class Server < Sinatra::Base
+class App < Sinatra::Base
   extend Hardware
 
   before do
@@ -23,7 +23,7 @@ class Server < Sinatra::Base
 
   def rpi_activation
     raspberry.activate
-    resp_body(serial: Server.serial, revision: Server.revision)
+    resp_body(serial: App.serial, revision: App.revision)
   end
 
   def resp_body(message)
