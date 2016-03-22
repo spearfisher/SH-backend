@@ -11,17 +11,26 @@ class Server < Sinatra::Base
     resp_body(message: 'OK')
   end
 
+  get '/api/settings' do
+    resp_body raspberry
+  end
+
   get '/api/activation' do
-    rpi_activation
+    raspberry.activated ? (halt 404) : rpi_activation
   end
 
   private
 
   def rpi_activation
-    res(serial: Server.serial, revision: Server.revision)
+    raspberry.activate
+    resp_body(serial: Server.serial, revision: Server.revision)
   end
 
   def resp_body(message)
     message.to_json
+  end
+
+  def raspberry
+    Raspberry.first
   end
 end
