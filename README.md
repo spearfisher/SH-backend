@@ -14,5 +14,5 @@ for development:
   ruby app.rb
 
 on raspberry as background process:
-  thin -R app.rb  -a 127.0.0.1 -p 8080 start &
+  thin -R app.rb  -a 0.0.0.0 -p 8081 start &
 ```
