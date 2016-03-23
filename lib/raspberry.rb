@@ -1,5 +1,4 @@
 require_relative 'hardware'
-
 class Raspberry < ActiveRecord::Base
   include Hardware
 

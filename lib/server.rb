@@ -1,8 +1,6 @@
-require_relative 'lib/raspberry'
+require_relative 'raspberry'
 
 class App < Sinatra::Base
-  extend Hardware
-
   before do
     content_type :json
   end
@@ -23,7 +21,7 @@ class App < Sinatra::Base
 
   def rpi_activation
     raspberry.activate
-    resp_body(serial: App.serial, revision: App.revision)
+    resp_body(serial: raspberry.serial, revision: raspberry.revision)
   end
 
   def resp_body(message)

@@ -5,12 +5,14 @@
 git clone https://github.com/spearfisher/SH-backend.git
 cd SH-backend
 ```
-### Setup
-  `rake db:setup`
-  
+### Setup or Update database
+  `ruby db/migrate/migration.rb`
+
 ### Run application
-  `rackup`
+```
+for development:
+  ruby app.rb
 
-
-### Update database 
-  `rake db:seed`
+on raspberry as background process:
+  thin -R app.rb  -a 127.0.0.1 -p 8080 start &
+```

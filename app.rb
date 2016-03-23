@@ -2,7 +2,12 @@ require 'sinatra'
 require 'json'
 require 'active_record'
 require 'thin'
-require_relative 'server'
+require_relative './lib/server'
+
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: './db/settings.db'
+)
 
 def run(app)
   EM.run do
