@@ -3,7 +3,7 @@ require_relative '../../lib/raspberry'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: './db/settings.db'
+  database: './db/settings.sqlite3'
 )
 
 class CreateRaspberries < ActiveRecord::Migration

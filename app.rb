@@ -6,7 +6,7 @@ require_relative './lib/server'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: './db/settings.db'
+  database: './db/settings.sqlite3'
 )
 
 def run(app)
