@@ -6,5 +6,6 @@ gem 'thin'
 gem 'sinatra'
 gem 'activerecord'
 gem 'sqlite3'
+gem 'bcrypt'
 
 gem 'rubocop'

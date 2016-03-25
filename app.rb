@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'bcrypt'
 require 'json'
 require 'active_record'
 require 'thin'

@@ -5,15 +5,27 @@ class App < Sinatra::Base
     content_type :json
   end
 
+  set(:method) { |method| condition { request.request_method == method } }
+  set :salt, nil
+
+  after '/api/*', method: 'POST' do
+    settings.salt = nil
+  end
+
   get '/api/test' do
     resp_body(message: 'OK')
   end
 
-  get '/api/settings' do
+  get '/api/salt' do
+    settings.salt = BCrypt::Engine.generate_salt
+    resp_body(salt: settings.salt)
+  end
+
+  post '/api/settings' do
     resp_body raspberry
   end
 
-  get '/api/activation' do
+  post '/api/activation' do
     raspberry.activated ? (halt 404) : rpi_activation
   end
 
