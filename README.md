@@ -9,10 +9,4 @@ cd SH-backend
   `ruby db/migrate/migration.rb`
 
 ### Run application
-```
-for development:
-  ruby app.rb
-
-on raspberry as background process:
-  thin -R app.rb  -a 0.0.0.0 -p 8081 start &
-```
+  `rackup`
