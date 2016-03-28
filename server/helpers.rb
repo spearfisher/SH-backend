@@ -7,7 +7,11 @@ module Helpers
 
   def rpi_activation
     raspberry.activate
-    resp_body(serial: raspberry.serial, revision: raspberry.revision)
+    resp_body(
+      serial: raspberry.serial,
+      revision: raspberry.revision,
+      secret: raspberry.secret
+    )
   end
 
   def resp_body(message)

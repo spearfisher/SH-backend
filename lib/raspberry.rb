@@ -5,4 +5,8 @@ class Raspberry < ActiveRecord::Base
   def activate
     update(activated: true)
   end
+
+  def secret
+    ENV['SECRET_KEY']
+  end
 end
