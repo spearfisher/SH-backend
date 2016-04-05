@@ -3,6 +3,7 @@ Bundler.require
 require_relative './server/helpers'
 require_relative './server/routes'
 require_relative './lib/raspberry'
+require_relative './server/streamer'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
@@ -14,6 +15,8 @@ class App < Sinatra::Base
 
   set(:method) { |method| condition { request.request_method == method } }
   set :salt, nil
+  # TODO: generate secret token for each stream request
+  set :token, 'secret-token'
 
   before do
     content_type :json
