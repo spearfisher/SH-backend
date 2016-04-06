@@ -1,15 +1,7 @@
 class App < Sinatra::Base
   before '/stream/:token' do
     halt 403 unless params[:token] == settings.token
-    # TODO: realize raspistill ruby wrapper, with configured settings
-    # start raspistill with default params
-    pid = spawn('raspistill -n -w 1920 -h 1080 -q 10 -o /run/shm/pic.jpg -tl 800 -t 9999999 -th 0:0:0 -ss 50000')
-    Process.detach pid
-  end
-
-  after '/stream/:token' do
-    pass unless params[:token] == settings.token
-    Process.kill('HUP', pid)
+    start_camera if `pgrep raspistill`.empty?
   end
 
   get '/stream/:token' do
@@ -18,6 +10,7 @@ class App < Sinatra::Base
     headers \
       'Cache-Control' => 'no-cache, private',
       'Content-type'  => "multipart/x-mixed-replace; boundary=--#{boundary}"
+    sleep 0.1 until File.exist? source
     stream(:keep_open) do |out|
       until out.closed?
         image = IO.read(source)
@@ -28,5 +21,12 @@ class App < Sinatra::Base
         sleep 0.2
       end
     end
+  end
+  
+  def start_camera
+    # TODO: realize raspistill ruby wrapper, with configured settings
+    # start raspistill with default params
+    pid = spawn('raspistill -n -w 1920 -h 1080 -q 10 -o /run/shm/pic.jpg -tl 800 -t 9999999 -th 0:0:0 -ss 50000')
+    Process.detach pid
   end
 end
