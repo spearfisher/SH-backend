@@ -18,5 +18,6 @@ class App < Sinatra::Base
 
   post '/api/token' do
     settings.redis.expire(:stream_token, 600) if settings.redis.set(:stream_token, params[:stream_token])
+    resp_body(message: 'OK')
   end
 end

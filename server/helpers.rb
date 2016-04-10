@@ -1,6 +1,6 @@
 module Helpers
   def token_verification
-    secret = raspberry.serial + request.path
+    secret = ENV['SECRET_KEY'] + request.path
     valid_token = BCrypt::Engine.hash_secret(secret, settings.salt)
     halt 403 unless valid_token == request.env['HTTP_TOKEN']
   end
