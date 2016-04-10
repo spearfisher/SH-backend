@@ -15,4 +15,8 @@ class App < Sinatra::Base
   post '/activation' do
     raspberry.activated ? (halt 404) : rpi_activation
   end
+
+  post '/api/token' do
+    settings.redis.expire(:stream_token, 600) if settings.redis.set(:stream_token, params[:stream_token])
+  end
 end

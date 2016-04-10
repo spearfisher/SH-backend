@@ -15,8 +15,7 @@ class App < Sinatra::Base
 
   set(:method) { |method| condition { request.request_method == method } }
   set :salt, nil
-  # TODO: generate secret token for each stream request
-  set :token, 'secret-token'
+  set :redis, Redis.new
 
   before do
     content_type :json

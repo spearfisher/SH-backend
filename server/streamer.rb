@@ -1,6 +1,6 @@
 class App < Sinatra::Base
   before '/stream/:token' do
-    halt 403 unless params[:token] == settings.token
+    halt 403 unless params[:token] == settings.redis.get(:stream_token)
     start_camera if `pgrep raspistill`.empty?
   end
 
@@ -23,10 +23,9 @@ class App < Sinatra::Base
       Process.kill('HUP', @pid) if out.closed?
     end
   end
-  
+
   def start_camera
     # TODO: realize raspistill ruby wrapper, with configured settings
-    # start raspistill with default params
     @pid = spawn('raspistill -n -w 640 -h 480 -q 10 -o /run/shm/pic.jpg -tl 800 -t 9999999 -th 0:0:0 -ss 60000')
     Process.detach @pid
   end
