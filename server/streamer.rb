@@ -18,15 +18,16 @@ class App < Sinatra::Base
         out << "Content-type: image/jpeg\r\n"
         out << "Content-Length: #{image.length}\r\n\r\n"
         out << image
-        sleep 0.2
+        sleep 0.01
       end
+      Process.kill('HUP', @pid) if out.closed?
     end
   end
   
   def start_camera
     # TODO: realize raspistill ruby wrapper, with configured settings
     # start raspistill with default params
-    pid = spawn('raspistill -n -w 1920 -h 1080 -q 10 -o /run/shm/pic.jpg -tl 800 -t 9999999 -th 0:0:0 -ss 50000')
-    Process.detach pid
+    @pid = spawn('raspistill -n -w 640 -h 480 -q 10 -o /run/shm/pic.jpg -tl 800 -t 9999999 -th 0:0:0 -ss 60000')
+    Process.detach @pid
   end
 end
