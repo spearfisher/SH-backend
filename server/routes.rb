@@ -4,7 +4,7 @@ class App < Sinatra::Base
   end
 
   get '/api/salt' do
-    settings.salt = BCrypt::Engine.generate_salt 12
+    settings.salt = BCrypt::Engine.generate_salt
     resp_body(salt: settings.salt)
   end
 
