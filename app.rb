@@ -14,8 +14,7 @@ class App < Sinatra::Base
   helpers Helpers
 
   set(:method) { |method| condition { request.request_method == method } }
-  set :salt, nil
-  set :redis, Redis.new
+  set salt: nil, connections: []
 
   before do
     content_type :json

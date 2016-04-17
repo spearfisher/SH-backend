@@ -3,11 +3,11 @@ require File.join(File.dirname(__FILE__), 'app')
 
 def run(app)
   EM.run do
-    raspberry = Raspberry.first
-    redis = Redis.new
+    $raspberry = Raspberry.first
+    $redis = Redis.new
     climate_params = EM.spawn do
-      params_hash = raspberry.climate_params
-      params_hash.each { |key, value| redis.set(key, value) }
+      params_hash = $raspberry.climate_params
+      params_hash.each { |key, value| $redis.set(key, value) }
     end
 
     Rack::Server.start(
@@ -24,8 +24,8 @@ def run(app)
       http = EventMachine::HttpRequest.new('http://home-pi.herokuapp.com/api/climate_logs/1', options).post(
                          query: { climate_log: { climate_sensor_id: 1,
                                                  datetime: Time.now.to_s,
-                                                 temp: redis.get(:temp),
-                                                 humidity: redis.get(:humidity)
+                                                 temp: $redis.get(:temp),
+                                                 humidity: $redis.get(:humidity)
                                                }.to_json }) 
       http.callback { p http.response }
     end

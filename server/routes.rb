@@ -9,15 +9,15 @@ class App < Sinatra::Base
   end
 
   post '/api/settings' do
-    resp_body raspberry
+    resp_body $raspberry
   end
 
   post '/activation' do
-    raspberry.activated ? (halt 404) : rpi_activation
+    $raspberry.activated ? (halt 404) : rpi_activation
   end
 
   post '/api/token' do
-    settings.redis.expire(:stream_token, 600) if settings.redis.set(:stream_token, params[:stream_token])
+    $redis.expire(:stream_token, 600) if $redis.set(:stream_token, params[:stream_token])
     resp_body(message: 'OK')
   end
 end

@@ -6,11 +6,11 @@ module Helpers
   end
 
   def rpi_activation
-    raspberry.activate
+    $raspberry.activate
     resp_body(
-      serial: raspberry.serial,
-      revision: raspberry.revision,
-      secret: raspberry.secret
+      serial: $raspberry.serial,
+      revision: $raspberry.revision,
+      secret: $raspberry.secret
     )
   end
 
@@ -18,7 +18,7 @@ module Helpers
     message.to_json
   end
 
-  def raspberry
-    Raspberry.first
-  end
+#  def raspberry
+#    Raspberry.first
+#  end
 end
