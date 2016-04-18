@@ -19,7 +19,7 @@ class App < Sinatra::Base
         out << "Content-type: image/jpeg\r\n"
         out << "Content-Length: #{image.length}\r\n\r\n"
         out << image
-        sleep 0.01
+        sleep 0.1
       end
       out.callback { settings.connections.delete(out) }
       $raspberry.stop_camera if settings.connections.empty?

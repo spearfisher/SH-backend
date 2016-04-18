@@ -19,5 +19,5 @@ end
 CreateRaspberries.migrate(:change) unless Raspberry.table_exists?
 
 # Seed database
-raspberry = Raspberry.first || Raspberry.new
+raspberry = Raspberry.take || Raspberry.new
 raspberry.update(activated: false, camera: false)

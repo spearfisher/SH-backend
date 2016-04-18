@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'app')
 
 def run(app)
   EM.run do
-    $raspberry = Raspberry.first
+    $raspberry = Raspberry.take
     $redis = Redis.new
     climate_params = EM.spawn do
       params_hash = $raspberry.climate_params
@@ -26,7 +26,7 @@ def run(app)
                                                  datetime: Time.now.to_s,
                                                  temp: $redis.get(:temp),
                                                  humidity: $redis.get(:humidity)
-                                               }.to_json }) 
+                                               }.to_json })
       http.callback { p http.response }
     end
   end

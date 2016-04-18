@@ -17,8 +17,4 @@ module Helpers
   def resp_body(message)
     message.to_json
   end
-
-#  def raspberry
-#    Raspberry.first
-#  end
 end
