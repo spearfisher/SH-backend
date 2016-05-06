@@ -1,4 +1,5 @@
 # SH-backend
+## Sinatra backend server for Raspberry Pi computer.
 
 ### Installation
 ```
