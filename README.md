@@ -1,7 +1,7 @@
 # SH-backend
-## Sinatra backend server for Raspberry Pi computer.
+## Sinatra based, backend server for [SmartHome project](https://github.com/spearfisher/SmartHome).
 
-### Installation
+### Installation on Raspberry Pi.
 ```
 git clone https://github.com/spearfisher/SH-backend.git
 cd SH-backend
